@@ -1,0 +1,174 @@
+$icon-font-path: '../fonts/';
+//@import 'your-override-variables'; 
+@import 'scss-base';
+
+// bower:scss
+// endbower
+
+#leftArrow {
+  top: 0%;
+  right: 98%;
+  position: absolute;
+  transform: translate(0%, 0%);
+  width: 1vw;
+  height:1vh;
+  font-size: 7vw;
+}
+
+#rightArrow {
+  top: 0%;
+  right: 9.7%;
+  position: absolute;
+  transform: translate(0%, 0%);
+  width: 1vw;
+  height:1vh;
+  font-size: 7vw;  
+}
+
+#leftArrow:hover, #rightArrow:hover{
+  -webkit-transition:all linear 0.2s;
+  transition:all linear 0.2s;
+  font-size: 8vw;
+  top: -1%;
+}
+
+.center {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    padding: 5px;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    border: 3px solid #73AD21;
+    padding: 10px;
+}
+
+.forms {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    padding: 5%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    font-size: 1.5vw;
+}
+
+.forms li {
+    position: relative;
+    padding-left: 11px;
+    margin:0 0 0.5vw 0;
+}
+
+.formInfo {
+    top: 0%;
+    left: 45%;
+    position: absolute;
+    transform: translate(-30%, -50%);
+    width: 40%;
+    font-size: 3vw;
+}
+
+.enteredData{
+
+  top: 10%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-55%, -0%);
+  font-size: 1.5vw;
+  line-height: 1em;
+
+
+}
+
+input.inlineOneEighth {
+  display: inline-block;
+  width: 22.5%;
+}
+
+input.inlineOneFourth {
+  display: inline-block;
+  width: 24.3%;
+}
+
+input.inlineHalf {
+  display: inline-block;
+  width: 48.6%;
+}
+
+input.inlineOneThird {
+  display: inline-block;
+  width: 31.8%;
+}
+
+input.inlineTwoThirds {
+  display: inline-block;
+  width: 65%;
+}
+
+input.inlineThreeEighths {
+  display: inline-block;
+  width: 75%;
+}
+
+input.validated.ng-touched.ng-invalid {
+  border:1px solid black;
+}
+
+input.validated.ng-dirty.ng-invalid {
+  border:2px solid red;
+}
+
+input.validated.ng-dirty.ng-valid {
+  border:2px solid green;
+  background:white;
+}
+
+input.autoAddress {
+  height: 10vh;
+}
+
+input, textarea, select{
+  font-size: 65%;
+}
+
+.fade-show-hide {
+  -webkit-transition:all linear 0.3s;
+  transition:all linear 0.3s;
+}
+
+.fade-show-hide.ng-hide {
+  opacity:0;
+}
+
+.submit{
+
+  top: 100%;
+  left: 50%;
+  position: absolute;
+  padding: 5px;
+  transform: translate(-50%, -10%);
+  width: 30%;
+
+}
+
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+/* Space out content a bit */
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+ul{
+  list-style-type: none;
+}
+
+p.checkText{
+  margin: 1vw;
+  font-size: 2vw;
+}

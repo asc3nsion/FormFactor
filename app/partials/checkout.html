@@ -1,0 +1,141 @@
+<section class="checkout">
+	<div class="progressWrapper">
+		<p class="progressText">
+			<div
+		    round-progress
+		    max="max"
+		    current="current"
+		    color="#45ccce"
+		    bgcolor="#eaeaea"
+		    radius="100"
+		    stroke="20"
+		    semi="false"
+		    rounded="false"
+		    clockwise="true"
+		    responsive="true"
+		    duration="800"
+		    animation="easeInOutQuart"
+		    animation-delay="0"
+		    font-size="10">12</div>		
+		</p>
+	</div>
+	<form name="checkoutForm" ng-controller="CheckoutCtrl" novalidate>
+
+		<div id="leftArrow" href ng-click="lastSection()" class="fa fa-chevron-left fa-5x"></div>
+		<div id="rightArrow" href ng-click="nextSection()" class="fa fa-chevron-right fa-5x"></div>
+
+		<ul class="enteredData">
+			<li class="fade-show-hide" ng-show="user.fullName && user.age">{{user.fullName}}&nbsp{{user.age}}</li>
+			<li class="fade-show-hide" ng-show="user.street && user.apt">{{user.street}}&nbsp{{user.apt}}</li>
+			<li class="fade-show-hide" ng-show="user.state && user.zip">{{user.state}}&nbsp{{user.zip}}</li>
+			<li class="fade-show-hide" ng-show="user.email">{{user.email}}</li>
+			<li class="fade-show-hide" ng-show=""></li>
+			<!-- <li>{{user.street}}&nbsp{{user.street}}</li> -->
+		</ul>
+		<div name="about-you" class="demographics fade-show-hide" ng-show="elements.aboutyou" >
+			<h3 class="demographics formInfo">About You</h3>
+		      <ul class="forms">
+				<!-- <li>	
+		        	<input type="checkbox"  class="checkText" ng-model= "user.mailMe">&nbsp &nbsp &nbsp Join Mailing list</input>
+		        </li> -->
+		        <li>
+		        	<input type="text" name="fullName" id="fullName" placeholder="First & Last Name" 
+		        		ng-model= "user.fullName" ng-required="true" ng-pattern="nameRegex"
+		        		ng-model-options="{ updateOn: 'blur' }" class="demographics validated inlineThreeEighths"></input>
+		        		<input type="number" name="age" min="3" max="120" placeholder="Age" ng-model= "user.age" ng-required="true" ng-model-options="{ updateOn: 'blur' }" class="validated inlineOneEighth"></input>
+		        </li>
+		        <li>
+		        	<input type="email" name="email" placeholder="Email" ng-model= "user.email" ng-required="true"
+		        			ng-model-options="{ updateOn: 'blur' }" class="validated"></input>
+		        </li>
+		        <li>
+		        	<input type="text" ng-show="temp.autocomplete" name="addressEnter" id="autocomplete" placeholder="Enter your address" ng-model="addressEntered" ng-model-options="{ updateOn: 'blur' }" onFocus="geolocate()" class="fade-show-hide" ng-required= "true" ng-blur="toggleTemp('autocomplete')" autocomplete="nope" ng-if"checkoutForm.addr.$invalid"></input>
+		        </li>
+		        <li class="fade-show-hide" ng-show="addressEntered">
+		        	<input type="number"name="street_number" id="street_number" placeholder="Street #" ng-model="user.streetNum" class="autocomplete validated inlineOneThird" ng-required= "true" auto-fill-sync></input>
+		        	<input type="text" name="street" id="route" placeholder="Street Name" ng-model="user.street" class="autocomplete validated inlineTwoThirds" ng-pattern="streetRegex" ng-required= "true" auto-fill-sync></input>
+		        </li>
+		        <li class="fade-show-hide" ng-show="addressEntered">
+		        	<input type="number" id="apt" min="3" max="100000" placeholder="Apt#" ng-model="user.apt" class="autocomplete validated inlineOneThird" auto-fill-sync></input>
+		        	<input type="text" id="locality" placeholder="City" ng-model="user.city" class="autocomplete validated inlineTwoThirds" ng-required= "true" auto-fill-sync></input>
+		        </li>
+		        <li class="fade-show-hide" ng-show="addressEntered">
+		        	<input type="text" id="administrative_area_level_1" placeholder="State" ng-model="user.state" class="autocomplete validated inlineOneThird" ng-required= "true" auto-fill-sync></input>
+		        	<input type="number" id="postal_code" placeholder="Zip" ng-model="user.zip" class="autocomplete validated inlineTwoThirds" ng-required= "true" auto-fill-sync></input>
+		        </li>
+		      </ul>
+		</div>
+
+		<div name="ship-to" class="address fade-show-hide" ng-show="elements.shipto">
+		<h3 class="address formInfo">&nbsp Ship to</h3>
+	      <ul class="forms">
+	        <li>
+	        	<input type="text" id="street" placeholder="Street Address" ng-model="user.street" class="validated"></input>
+	        </li>
+	        <li>
+	        	<input type="number" id="apt" min="3" max="100000" placeholder="Apt #" ng-model="user.apt" class="validated inlineThree"></input>
+	        	<input type="text" id="city" placeholder="City" ng-model="user.city" class="validated inlineThree"></input>
+	        	<input type="text" id="state" placeholder="State" ng-model="user.state" class="validated inlineThree"></input>
+	        </li>
+	        <li>
+	        	<input type="text" id="city" placeholder="City" ng-model="user.city" class="validated inlineTwo"></input>
+	        	<input type="text" id="state" placeholder="State" ng-model="user.state" class="validated inlineTwo"></input>
+	        </li>
+	        <li>
+	        	<input type="text" id="state" placeholder="State" ng-model="user.state" class="validated"></input>
+	        </li>
+	        <li>
+	        	<input type="checkbox" id="billAddress" class="checkText" ng-model="user.bAddress" ng-click="setSections()">Other Billing Address?</input>
+	        </li>
+	      </ul>
+		</div>
+
+		<div name= "bill-to" class="billing fade-show-hide" ng-show="elements.billto">
+		<h3 class="billing formInfo">&nbsp Bill to</h3>
+	      <ul class="forms">
+	        <li>
+	        	<input type="text" id="street" placeholder="Street Address" ng-model="other.street" ></input>
+	        </li>
+	        <li>
+	        	<input type="number" id="apt" min="3" max="120" placeholder="Apt #" ng-model="other.apt" ></input>
+	        </li>
+	        <li>
+	        	<input type="text" id="city" placeholder="City" ng-model="other.city" ></input>
+	        </li>
+	        <li>
+	        	<input type="text" id="state" placeholder="State" ng-model="other.state" ></input>
+	        </li>
+	        <li>
+	        	<input type="number" id="zip" min="7" max="120" placeholder="Apt #" ng-model="user.zip" ></input>
+	        </li>
+	      </ul>
+		</div>
+
+		 <div name="pay-with" class="card fade-show-hide" ng-show="elements.paywith">
+		  <h3 class="card formInfo">Pay with</h3>
+	      <ul class="forms">
+	      	<li>
+	      		<select id="cardType" ng-model="user.cardType">
+	      			<option>Visa</option>
+	      			<option>American Express</option>
+	      			<option>Mastercard</option>
+	      			<option>Discover</option>
+	      		</select>
+	      	</li>
+	        <li>
+	        	<input type="text" id="cardNum" placeholder="Card #" ng-model="user.cardNum" class="validated"></input>
+	        </li>
+	        <li>
+	        	<input type="text" id="expDate" onfocus="(this.type='date')" placeholder="Expiration" ng-model="user.cardExp" class="validated"></input>
+	        </li>
+	        <li>
+	        	<input type="text" id="cvv" placeholder="City" ng-model="user.cvv" class="validated"></input>
+	        </li>
+	        <li>
+	        	<input class="submit" type="submit" ng-model="user.submit"></input>
+	        </li>
+	      </ul>
+
+	</form> 
+    
+</section>

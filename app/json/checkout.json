@@ -1,0 +1,8 @@
+{
+  "data": [
+    {
+      "name": "progress",
+      "html": "<progress id=\"formbar\" value=\"70\" max=\"100\">70</progress>"
+    }
+  ]
+}

@@ -2,7 +2,7 @@
 var ngApp = angular.module('ngApp', [
 	'ngRoute',
 	'formCtrl',
-	'angular-svg-round-progress'
+	'angular-svg-round-progress',
 	]);
 
 ngApp.config(['$routeProvider',
@@ -38,7 +38,7 @@ function initAutocomplete() {
   // Create the autocomplete object, restricting the search to geographical
   // location types.
   autocomplete = new google.maps.places.Autocomplete(
-      /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+      /** @type {!HTMLInputElement} */(document.getElementById('addressEnter')),
       {types: ['geocode']});
 
   // When the user selects an address from the dropdown, populate the address
@@ -51,7 +51,7 @@ function fillInAddress() {
   var place = autocomplete.getPlace();
   var formatAdr = "";
 
-  document.getElementById('autocomplete').value = place.formatted;
+  document.getElementById('addressEnter').value = place.formatted;
   for (var component in componentForm) {
     document.getElementById(component).value = '';
     document.getElementById(component).disabled = false;
@@ -63,7 +63,13 @@ function fillInAddress() {
     var addressType = place.address_components[i].types[0];
     if (componentForm[addressType]) {
       var val = place.address_components[i][componentForm[addressType]];
+      document.getElementById(addressType).focus();
       document.getElementById(addressType).value = val;
+      $('#'+addressType).removeClass('ng-pristine');
+      $('#'+addressType).removeClass('ng-empty');
+      $('#'+addressType).removeClass('ng-invalid').addClass('ng-valid');
+      $('#'+addressType).removeClass('ng-invalid-required').addClass('ng-dirty');
+      document.getElementById(addressType).blur();
     }
   }
 }

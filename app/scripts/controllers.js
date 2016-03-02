@@ -13,36 +13,26 @@ formCtrl.controller('CheckoutCtrl', function($rootScope, $scope, $http){
 	$scope.elements.aboutyou= true;
 
 	//Setup temporary inputs that need to hide
+	//Key is reference to element id
 	$scope.temp = {
-		"autocomplete" : true
+		"addressEnter" : true
 	};
-
-	//Setup the forms and listeners for changes
-	$scope.forms = ["checkoutForm"];
-	$scope.temps = ["addressEnter"];
-	$scope.forms.forEach(function(entry){
-		//These are listeners on temp elements
-		$scope.temps.forEach(function(elem){
-			$scope.$watch(entry+'.'+elem+'.$invalid', function(newVal){
-				console.log(entry+'.'+elem+'.$invalid is '+ newVal);
-			});
-		});
-
-	});
 
 	//user data
 	$scope.user = {
 		fullName : "",
 		age : "",
 		email : "",
-		street : "",
+		street_number : "",
+		route : "",
 		apt : "",
-		city : "",
-		state : "",
-		zip : "",
+		locality : "",
+		administrative_area_level_1 : "",
+		postal_code : "",
 		bAddress : false,
 		bName : "",
 		bStreet : "",
+		bStreetNum : "",
 		bApt : "",
 		bCity : "",
 		bState : "",
@@ -55,6 +45,39 @@ formCtrl.controller('CheckoutCtrl', function($rootScope, $scope, $http){
 	$scope.nameRegex = /^(?:[\u00c0-\u01ffa-zA-Z'-]){2,}(?:\s[\u00c0-\u01ffa-zA-Z'-]{2,})+$/i;
 	//Regex to validate street name
 	$scope.streetRegex = /^\s*\S+(?:\s+\S+){2}/;
+
+	//Setup the forms and listeners for changes
+	$scope.forms = ["checkoutForm"];
+	$scope.temps = ["addressEnter"];//references to form element names
+	$scope.autofills = ["street_number", "route", "locality", "administrative_area_level_1", "postal_code"];
+	$scope.forms.forEach(function(entry){
+		//These are listeners on temp elements
+		$scope.temps.forEach(function(tm){
+			$scope.$watch(entry+'.'+tm+'.$invalid', function(newVal){
+				//console.log(entry+'.'+elem+'.$invalid is '+ newVal);
+			});
+		});
+
+		//This handles autofills, updating models via jquery since angular makes that difficult.
+		var log = [];
+		angular.forEach($scope.user, function(value, key) {
+			$scope.$watch(entry+'.'+key+'.$touched', function(newVal){
+				//console.log(key);
+				var val = $('#'+key).val();
+				if(!isNaN(val) && val !== "" && val !== undefined){
+					//console.log(entry+'.'+key+ " changed to "+ newVal+" value is: "+val);
+					document.getElementById(key).focus();
+					$scope['user'][key] = parseInt(val);
+				}else if(isNaN(val) && val !== "" && val !== undefined){
+					//console.log(entry+'.'+key+ " changed to "+ newVal+" value is: "+val);
+					document.getElementById(key).focus();
+					$scope['user'][key] = val;
+				}
+			});			
+		}, log);
+
+	});
+
 	//Show or hide sections based on checked variables
 	$scope.setSections = function(){
 

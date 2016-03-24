@@ -4,7 +4,7 @@ var formCtrl = angular.module('formCtrl',['ngAnimate']);
 formCtrl.controller('CheckoutCtrl', function($rootScope, $scope, $http){
 
 	//Set up all the sections hide them, then show the first
-	$scope.sections = ["aboutyou", "shipto", "billto","paywith"];
+	$scope.sections = ["aboutyou", "billto","paywith"];
 	$scope.currentSection = 0;
 	$scope.elements = {};
 	$scope.sections.forEach(function(entry) {
@@ -30,13 +30,13 @@ formCtrl.controller('CheckoutCtrl', function($rootScope, $scope, $http){
 		administrative_area_level_1 : "",
 		postal_code : "",
 		bAddress : false,
-		bName : "",
-		bStreet : "",
-		bStreetNum : "",
-		bApt : "",
-		bCity : "",
-		bState : "",
-		bZip : "",
+		_fullName : "",
+		_street_number : "",
+		_route : "",
+		_apt : "",
+		_locality : "",
+		_Administrative_area_level_1 : "",
+		_Postal_code : "",
 		cardNum : "",
 		cardExp : "",
 		cvv : ""
@@ -49,7 +49,6 @@ formCtrl.controller('CheckoutCtrl', function($rootScope, $scope, $http){
 	//Setup the forms and listeners for changes
 	$scope.forms = ["checkoutForm"];
 	$scope.temps = ["addressEnter"];//references to form element names
-	$scope.autofills = ["street_number", "route", "locality", "administrative_area_level_1", "postal_code"];
 	$scope.forms.forEach(function(entry){
 		//These are listeners on temp elements
 		$scope.temps.forEach(function(tm){
@@ -59,17 +58,18 @@ formCtrl.controller('CheckoutCtrl', function($rootScope, $scope, $http){
 		});
 
 		//This handles autofills, updating models via jquery since angular makes that difficult.
+		//Puts listeners on user model $touched so when the auto fill happens, jq sets the model values
 		var log = [];
 		angular.forEach($scope.user, function(value, key) {
 			$scope.$watch(entry+'.'+key+'.$touched', function(newVal){
-				//console.log(key);
+
 				var val = $('#'+key).val();
 				if(!isNaN(val) && val !== "" && val !== undefined){
-					//console.log(entry+'.'+key+ " changed to "+ newVal+" value is: "+val);
+
 					document.getElementById(key).focus();
 					$scope['user'][key] = parseInt(val);
 				}else if(isNaN(val) && val !== "" && val !== undefined){
-					//console.log(entry+'.'+key+ " changed to "+ newVal+" value is: "+val);
+
 					document.getElementById(key).focus();
 					$scope['user'][key] = val;
 				}
@@ -82,9 +82,9 @@ formCtrl.controller('CheckoutCtrl', function($rootScope, $scope, $http){
 	$scope.setSections = function(){
 
 		if($scope.user.bAddress){
-			$scope.sections = ["aboutyou", "shipto", "billto","paywith"];	
+			$scope.sections = ["aboutyou", "billto","paywith"];	
 		}else if(!$scope.user.bAddress){
-			$scope.sections = ["aboutyou", "shipto", "paywith"];
+			$scope.sections = ["aboutyou", "paywith"];
 		}
 
 		$scope.sections.forEach(function(entry) {

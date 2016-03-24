@@ -69,47 +69,20 @@
 		      </ul>
 		</div>
 
-		<div name="ship-to" class="address fade-show-hide" ng-show="elements.shipto">
-		<h3 class="address formInfo">&nbsp Ship to</h3>
-	      <!-- <ul class="forms">
-	        <li>
-	        	<input type="text" id="street" placeholder="Street Address" ng-model="user.street" class="validated"></input>
-	        </li>
-	        <li>
-	        	<input type="number" id="apt" min="3" max="100000" placeholder="Apt #" ng-model="user.apt" class="validated inlineThree"></input>
-	        	<input type="text" id="city" placeholder="City" ng-model="user.city" class="validated inlineThree"></input>
-	        	<input type="text" id="state" placeholder="State" ng-model="user.state" class="validated inlineThree"></input>
-	        </li>
-	        <li>
-	        	<input type="text" id="city" placeholder="City" ng-model="user.city" class="validated inlineTwo"></input>
-	        	<input type="text" id="state" placeholder="State" ng-model="user.state" class="validated inlineTwo"></input>
-	        </li>
-	        <li>
-	        	<input type="text" id="state" placeholder="State" ng-model="user.state" class="validated"></input>
-	        </li>
-	        <li>
-	        	<input type="checkbox" id="billAddress" class="checkText" ng-model="user.bAddress" ng-click="setSections()">Other Billing Address?</input>
-	        </li>
-	      </ul> -->
-		</div>
-
-		<div name= "bill-to" class="billing fade-show-hide" ng-show="elements.billto">
-		<h3 class="billing formInfo">&nbsp Bill to</h3>
+		<div name="bill-to" class="address fade-show-hide" ng-show="elements.billto">
+		<h3 class="address formInfo">&nbsp Bill to</h3>
 	      <ul class="forms">
 	        <li>
-	        	<input type="text" id="bstreet" placeholder="Street Address" ng-model="other.street" ></input>
+	        	<input type="number"name="_street_number" id="_street_number" placeholder="Street #" ng-model="user._street_number" class="validated inlineOneThird"></input>
+	        	<input type="text" name="_route" id="_route" placeholder="Street Name" ng-model="user._route" class="validated inlineTwoThirds" ng-pattern="streetRegex"></input>
 	        </li>
 	        <li>
-	        	<input type="number" id="bapt" min="3" max="120" placeholder="Apt #" ng-model="other.apt" ></input>
+	        	<input type="number" name="_apt" id="_apt" min="3" max="100000" placeholder="Apt#" ng-model="user._apt" class="validated inlineOneThird"></input>
+		        <input type="text" name="_locality" id="_locality" placeholder="City" ng-model="user._locality" class="validated inlineTwoThirds"></input>
 	        </li>
 	        <li>
-	        	<input type="text" id="bcity" placeholder="City" ng-model="other.city" ></input>
-	        </li>
-	        <li>
-	        	<input type="text" id="bstate" placeholder="State" ng-model="other.state" ></input>
-	        </li>
-	        <li>
-	        	<input type="number" id="bzip" min="7" max="120" placeholder="Apt #" ng-model="user.zip" ></input>
+	        	<input type="text" name="_administrative_area_level_1" id="_administrative_area_level_1" placeholder="State" ng-model="user._administrative_area_level_1" class="validated inlineOneThird"></input>
+		        <input type="number" name="_postal_code" id="_postal_code" placeholder="Zip" ng-model="user._postal_code" class="validated inlineTwoThirds"></input>
 	        </li>
 	      </ul>
 		</div>
@@ -132,7 +105,7 @@
 	        	<input type="text" id="expDate" onfocus="(this.type='date')" placeholder="Expiration" ng-model="user.cardExp" class="validated"></input>
 	        </li>
 	        <li>
-	        	<input type="text" id="cvv" placeholder="City" ng-model="user.cvv" class="validated"></input>
+	        	<input type="text" id="cvv" placeholder="cvv" ng-model="user.cvv" class="validated"></input>
 	        </li>
 	        <li>
 	        	<input class="submit" type="submit" ng-model="user.submit"></input>
